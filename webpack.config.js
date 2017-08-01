@@ -7,7 +7,6 @@ var path = require('path');
 module.exports = {
   entry: {
     "sampleapp": "./app/main.ts",
-
     "vendor": [
       'angular',
       'zone.js',

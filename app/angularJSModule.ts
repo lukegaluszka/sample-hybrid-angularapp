@@ -11,7 +11,6 @@ import { upgradeModule } from "@uirouter/angular-hybrid";
 // Feature Modules
 import { globalModule } from "./global/index";
 import { homeModule } from "./home/index";
-import { mymessagesModule } from './mymessages/index';
 
 // Create the angular 1 module "demo".
 //
@@ -21,8 +20,7 @@ export const sampleAppModuleAngularJS = angular.module("sampleapp", [
   uiRouter,
   upgradeModule.name,
   homeModule.name,
-  globalModule.name,
-  mymessagesModule.name,
+  globalModule.name
 ]);
 
 // Apply some global configuration...

@@ -26,9 +26,8 @@ const welcomeState = {
 
 
 /**
- * This is a home screen for authenticated users.
+ * This is a home screen.
  *
- * It shows giant buttons which activate their respective submodules: Messages, Contacts, Preferences
  */
 const homeState = {
   parent: 'app',
@@ -45,13 +44,6 @@ const homeState = {
  * It shows a fake login dialog and prompts the user to authenticate.  Once the user authenticates, it then
  * reactivates the state that the user originally came from.
  */
-const loginState = {
-  parent: 'app',
-  name: 'login',
-  url: '/login',
-  component: 'login',
-  resolve: { returnTo: returnTo }
-};
 
 /**
  * A resolve function for 'login' state which figures out what state to return to, after a successful login.
@@ -83,5 +75,4 @@ homeModule.config(['$stateProvider', ($stateProvider) => {
   $stateProvider.state(appState);
   $stateProvider.state(welcomeState);
   $stateProvider.state(homeState);
-  $stateProvider.state(loginState);
 }]);

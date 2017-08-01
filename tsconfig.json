@@ -1,7 +1,6 @@
 {
   "files": [
-    "app/main.ts",
-    "app/contacts/contacts.module.ts"
+    "app/main.ts"
   ],
   "compilerOptions": {
     "allowJs": true,

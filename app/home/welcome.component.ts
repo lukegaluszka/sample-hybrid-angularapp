@@ -1,36 +1,45 @@
 import { homeModule } from './home.module';
+import { FormControl } from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap'
+import {Wikipedia} from '../global/data.service';
+
+
+class welcomeCtrl {
+    items: any;
+    // items: Observable<Array<string>>;
+    term = new FormControl();
+
+    constructor(private wikipediaService: Wikipedia) {
+    }
+
+
+  // @TODO : inject wikipedia service
+
+    $onInit() {
+        this.items = this.term.valueChanges
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .switchMap(term => this.wikipediaService.search(term))
+            .subscribe( res => res.json());
+    }
+}
 
 const welcomeComponent = {
+  controller: welcomeCtrl,
   template: `
-    <div class="container-fluid">
-    
-      <h3>UI-Router Sample App</h3>
-    
-      <p>Welcome to the sample app!</p>
-      <p>This is a demonstration app intended to highlight some patterns that can be used within UI-Router.
-        These patterns should help you to to build cohesive, robust apps.  Additionally, this app uses state-vis
-        to show the tree of states, and a transition log visualizer.</p>
-    
-      <h4>App Overview</h4>
-      <p>
-        First, start exploring the application's functionality at a high level by activating
-        one of the three submodules: Messages, Contacts, or Preferences. If you are not already logged in,
-        you will be taken to an authentication screen (the authentication is fake; the password is "password")
-        <div>
-          <button class="btn btn-primary" ui-sref="mymessages"><i class="fa fa-envelope"></i><span>Messages</span></button>
-          <button class="btn btn-primary" ui-sref="contacts"><i class="fa fa-users"></i><span>Contacts</span></button>
-          <button class="btn btn-primary" ui-sref="prefs"><i class="fa fa-cogs"></i><span>Preferences</span></button>
-        </div>
-      </p>
-    
-      <h4>Patterns and Recipes</h4>
+    <h1 class="home buttons">
+      Welcome component
+    </h1>
+    <input type="text" [formControl]="term">
       <ul>
-        <li>Require Authentication</li>
-        <li>Previous State</li>
-        <li>Redirect Hook</li>
-        <li>Default Param Values</li>
+        <li *ngFor="let item of items">{{::$ctrl.item}}</li>
       </ul>
-    </div>`
+      
+`
 };
 
 homeModule.component('welcome', welcomeComponent);
